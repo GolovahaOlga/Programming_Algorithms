@@ -1,62 +1,49 @@
 #include <iostream>
 #include <cmath>
-#include "libquanternion.h"
-#include "quanternion.cpp"
+#include "libellipsis.h"
+#include "ellipsis.cpp"
 using namespace std;
 int main(){
-    int h;
-    double a1,b1,c1,d1;
-    Quanternion q1, q2, q3,q4;
-    cout<<"---Quanternion 01 --- "<<endl; 
-    // creat object by def
-    q1=Quanternion();
-    print(q1);
-    cout<<"---Quanternion 02 --- "<<endl; 
-    cout<<"Enter the real part of the number and the real coefficients for imaginary numbers."<<endl;
-    cout<<"a: "<<endl;
-    cin>>a1;
-    cout<<"b: "<<endl;
-    cin>>b1;
-    cout<<"c: "<<endl;
-    cin>>c1;
-    cout<<"d: "<<endl;
-    cin>>d1;
-    q2=Quanternion(a1,b1,c1,d1);
-    print(q2);
-    do{
-        cout<<"Enter 1 if you want to copy the first quanternion. Enter 2 if you want to copy the second quanternion."<<endl;
-        cin>>h;
-    }while(h!=1 and h!=2);
-    if (h==1){
-        cout<<"---Quanternion 03 = Quanternion 01--- "<<endl; 
-        q3=Quanternion(q1);
-        print(q3);
-    }else if (h==2){
-        cout<<"---Quanternion 03 = Quanternion 02--- "<<endl; 
-        q3=Quanternion(q2);
-        print(q3);
+    double h,k,a,b,d;
+    double x,y;
+    int r;
+    Ellipsis e1,e2;
+    e1=Ellipsis();
+    cout<<"Enter the coordinates of the center of the ellipse, the length of the major and minor semi-axes, specify 1 if the semimajor axis is on the x axis "<<endl;
+    cout<<"h :"<<endl;
+    cin>>h;
+    cout<<"k :"<<endl;
+    cin>>k;
+    cout<<"a :"<<endl;
+    cin>>a;
+    cout<<"b :"<<endl;
+    cin>>b;
+    cout<<"d :"<<endl;
+    cin>>d;
+    e2=Ellipsis(h,k,a,b);
+    cout<<"Hyperparameter of ellipsis 2 : "<<e2.calculate_c()<<endl;
+    e2.vertex();
+    e2.focus();
+    e2.focal_chord();
+    e2.eccenticity();
+    ellipse_epuation(e2);
+
+    print_point_position(e1);
+
+    cout<<"Perimeter: "<<perimeter(e2)<<endl;
+    cout<<"Square: "<<square(e2)<<endl;
+    cout<<"If you know the x coordinate, enter 1, else 0"<<endl;
+    cin>>r;
+    if (r==1){
+        cout<<"Enter x"<<endl;
+        cin>>x;
+        cout<<"Y: "<<endl;
+        calculateY(x,e2);
+    }else if(r==0){
+        cout<<"Enter y"<<endl;
+        cin>>y;
+        cout<<"X: "<<endl;
+        calculateX(y,e2);
     }
-    cout<<"Calculating the quaternion 01 norm: "<<nq(q1)<<endl;
-    cout<<"Conjugate quaternion 02: "<< endl;
-    q4=q2;
-    sq(q4);
-    print(q4);
-    cout<<"Normalization of the quaternion 01: "<<endl;
-    q4=q1;
-    norm(q4);
-    print(q4);
-    cout<<"Inversion of the quaternion 02: "<<endl;
-    inv(q2);
-    cout<<"Quanternion 01 + Quanternion 02 = "<<endl;
-    sum(q1,q2);
-    cout<<"Quanternion 01 - Quanternion 02 = "<<endl;
-    sub(q1,q2);
-    cout<<"Quanternion 01 * Quanternion 02 = "<<endl;
-    multiplication(q1,q2);
-    cout<<"Quanternion 01 / Quanternion 02 = "<<endl;
-    division(q1,q2);
-    cout<<"The scalar product Quanternion 01 and Quanternion 02 : " << scalar_product(q1,q2)<<endl;
-    cout<<"the Euclidean distance between Quanternion 01 and Quanternion 02 : "<<Euclidean_distance(q1,q2)<<endl;
-    cout<<"Chebyshev norms between Quanternion 01 and Quanternion 02 : "<<normch(q1,q2)<<endl;
     return 0;
 }
